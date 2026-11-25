@@ -1,6 +1,6 @@
 name: Зібрати прошивку для сайту
 on:
-  workflow_dispatch:        # кнопка «Run workflow» на вкладці Actions
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
@@ -9,10 +9,18 @@ jobs:
     container: espressif/idf:v5.5
     steps:
       - uses: actions/checkout@v4
-      - name: Збірка (tools/release.sh)
+      - name: Збірка (з повним логом)
         shell: bash
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          . $IDF_PATH/export.sh
+          export KEYPET_PUBLIC=1
+          cd firmware
+          idf.py -B build-release build 2>&1 | tail -n 60
+          test ${PIPESTATUS[0]} -eq 0
+      - name: Пакування для сайту
+        shell: bash
+        run: |
           . $IDF_PATH/export.sh
           bash tools/release.sh
       - name: Зберегти docs/firmware/firmware.js
