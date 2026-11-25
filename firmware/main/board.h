@@ -1,6 +1,7 @@
 /* What the board glue in main.c shares with ble.c. */
 #pragma once
 #include <stdbool.h>
+#include <stdint.h>
 
 void ui_lock(void);   /* LVGL is not thread-safe: every touch of the UI from another task goes inside */
 void ui_unlock(void);
@@ -12,6 +13,9 @@ void batlog_dump(void (*out)(const char *)); /* the battery log as "@B seq uptim
 void batlog_clear(void);
 
 void debug_start(void);
+uint32_t wallpaper_flash_addr(void); /* where the wallpaper image sits in flash (absolute), 0 if there is no storage partition */
+bool wallpaper_flash_on(void);       /* a wallpaper was found at boot and is in use */
+void wallpaper_flash_clear(void);    /* erase it; it goes away at the next restart */
 void settings_save(void);       /* power, features, brightness, privacy into NVS */
 void settings_bright(int pct);  /* the panel's full brightness, 10..100 */
 int settings_brightness(void);

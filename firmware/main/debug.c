@@ -7,7 +7,7 @@
      @T {json}          the urges [need, line, mood, other face]
    why = [kind, which, value]: the branch of the tree that picked the mood (ui/pet.h pet_mood_why).
    Commands in: mood <i> | auto | react <i> <s> | need <0-4> <v> | day <v> | annoy <v> | urge <i> <line>
-                pool <great> <good> <meh> | set <knob> <v> | feat <f> <0|1> | eco <0|1> | bat [clear] | demo <s> [i ...] | hist | names | tune
+                pool <great> <good> <meh> | set <knob> <v> | feat <f> <0|1> | eco <0|1> | bat [clear] | wall clear | demo <s> [i ...] | hist | names | tune
                 open <app> | home | btn <0|1> | meet | feed | play | sleep | wake | rare [mood] | game <0 won|1 lost|2 record> */
 #include "board.h"
 #include "esp_pm.h"
@@ -209,7 +209,7 @@ static void config(void) /* @C: everything the settings page shows */
         json_str(t, sizeof t, l->handle), n += snprintf(b + n, sizeof b - n, "%s,", t);
         json_str(t, sizeof t, l->url), n += snprintf(b + n, sizeof b - n, "%s]", t);
     }
-    snprintf(b + n, sizeof b - n, "]}\n");
+    snprintf(b + n, sizeof b - n, "],\"wall\":[%u,%d]}\n", (unsigned)wallpaper_flash_addr(), wallpaper_flash_on()); /* where to write the photo, and is one in use */
     put(b);
 }
 
@@ -254,6 +254,7 @@ static void command(char *line)
     if (!strcmp(c, "names")) { names(); return; }
     if (!strcmp(c, "tune")) { tune(); return; }
     if (!strcmp(c, "config")) { config(); return; }
+    if (!strcmp(c, "wall")) { if (n > 1 && !strcmp(arg[1], "clear")) wallpaper_flash_clear(); config(); return; } /* wall clear: no photo after the next restart */
     if (!strcmp(c, "pm")) { esp_pm_dump_locks(stdout); return; } /* who keeps the chip awake */
     if (!strcmp(c, "bat")) { if (n > 1 && !strcmp(arg[1], "clear")) batlog_clear(); batlog_dump(put); return; }
     ui_lock();

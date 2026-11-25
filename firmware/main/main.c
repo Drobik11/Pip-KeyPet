@@ -29,6 +29,7 @@
 #include "profile.h"
 #include "mic.h"
 #include "voice.h"
+#include "wallpaper.h"
 
 static const char *TAG = "keypet";
 
@@ -417,7 +418,7 @@ static void sensors_task(void *arg)
         if (now - last_log > 5000000) {
             last_log = now;
             char note[96]; /* the developer HUD's last line: what only the board knows */
-            snprintf(note, sizeof note, "озу %u К · psram %.1f М · лицо %.0f мс", (unsigned)(heap_caps_get_free_size(MALLOC_CAP_INTERNAL) / 1024),
+            snprintf(note, sizeof note, "озп %u К · psram %.1f М · обличчя %.0f мс", (unsigned)(heap_caps_get_free_size(MALLOC_CAP_INTERNAL) / 1024),
                      heap_caps_get_free_size(MALLOC_CAP_SPIRAM) / 1048576.0f, face_ms[0]);
             pip_dev_note(note);
             ESP_LOGI(TAG, "mood=%s reaction=%s steps=%d face=%.1f ms refresh=%.1f ms accel=(%.2f %.2f %.2f) free psram=%u internal=%u",
@@ -797,6 +798,42 @@ static void refr_cb(lv_event_t *e)
     }
 }
 
+/* ---------- the wallpaper: a photo the panel wrote into "storage" at WALL_AT (ui/wallpaper.h), read into PSRAM once ---------- */
+static const esp_partition_t *wall_part(void)
+{
+    static const esp_partition_t *p;
+    if (!p) p = esp_partition_find_first(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_ANY, "storage");
+    return p;
+}
+
+uint32_t wallpaper_flash_addr(void) { const esp_partition_t *p = wall_part(); return p ? p->address + WALL_AT : 0; }
+bool wallpaper_flash_on(void) { return wallpaper_get() != NULL; }
+void wallpaper_flash_clear(void)
+{
+    const esp_partition_t *p = wall_part();
+    if (p) esp_partition_erase_range(p, WALL_AT, 4096); /* the header goes; the pixels behind it are just garbage */
+}
+
+static void wallpaper_load(void)
+{
+    const esp_partition_t *p = wall_part();
+    wall_head_t h;
+    if (!p) return;
+    ESP_LOGI(TAG, "wallpaper goes at flash 0x%x", (unsigned)(p->address + WALL_AT));
+    if (esp_partition_read(p, WALL_AT, &h, sizeof h) != ESP_OK || memcmp(h.magic, WALL_MAGIC, 4)) return; /* none */
+    size_t bytes = (size_t)WALL_SIZE * WALL_SIZE * 2;
+    if (h.w != WALL_SIZE || h.h != WALL_SIZE || h.bytes != bytes) { ESP_LOGW(TAG, "wallpaper: wrong size %dx%d", h.w, h.h); return; }
+    uint16_t *px = heap_caps_aligned_alloc(64, bytes, MALLOC_CAP_SPIRAM);
+    if (!px) { ESP_LOGW(TAG, "wallpaper: no PSRAM"); return; }
+    if (esp_partition_read(p, WALL_AT + sizeof h, px, bytes) != ESP_OK || wallpaper_hash(px, bytes) != h.check) {
+        ESP_LOGW(TAG, "wallpaper: damaged (flashed halfway?), ignored");
+        free(px);
+        return;
+    }
+    wallpaper_use(px, WALL_SIZE, WALL_SIZE);
+    ESP_LOGI(TAG, "wallpaper on (%u KB in PSRAM)", (unsigned)(bytes / 1024));
+}
+
 void app_main(void)
 {
     pm_start();
@@ -820,6 +857,7 @@ void app_main(void)
     ui_lock();
     lv_rand_set_seed(esp_random());
     theme_load(); /* before the UI is built in it */
+    wallpaper_load(); /* likewise: every screen takes it from th_screen() */
     privacy_load();
     settings_load();
     lv_display_add_event_cb(disp, refr_cb, LV_EVENT_REFR_START, NULL);
