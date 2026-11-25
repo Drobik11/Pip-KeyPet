@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ru">
+<html lang="uk">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Пип — панель</title>
+<title>Піп — панель</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -131,41 +131,41 @@ details p{margin:8px 0 0}
 <body>
 <div class="app">
   <aside class="rail">
-    <div class="brand"><h1>Пип</h1><span>панель брелока</span></div>
+    <div class="brand"><h1>Піп</h1><span>панель брелока</span></div>
 
     <div class="device">
       <div class="screen" aria-hidden="true"><div class="eyes"><i></i><i></i></div></div>
-      <div class="status"><span class="dot"></span><span id="state">Не подключён</span></div>
+      <div class="status"><span class="dot"></span><span id="state">Не підключено</span></div>
       <dl class="facts">
-        <dt>Настроение</dt><dd id="mood">—</dd>
+        <dt>Настрій</dt><dd id="mood">—</dd>
         <dt>Батарея</dt><dd id="bat">—</dd>
         <dt>Прошивка</dt><dd id="ver">—</dd>
       </dl>
       <div class="connect">
-        <button class="main" id="usb">Подключить по кабелю</button>
-        <button id="ble">Без кабеля, по Bluetooth</button>
+        <button class="main" id="usb">Підключити кабелем</button>
+        <button id="ble">Без кабелю, по Bluetooth</button>
       </div>
     </div>
 
     <nav id="tabs">
-      <button data-tab="settings" class="on">Настройки</button>
-      <button data-tab="flash">Прошить / обновить</button>
-      <button data-tab="dev">Для разработчиков</button>
+      <button data-tab="settings" class="on">Налаштування</button>
+      <button data-tab="flash">Прошити / оновити</button>
+      <button data-tab="dev">Для розробників</button>
     </nav>
 
-    <footer>Работает в Chrome и Edge. Ничего не устанавливается: страница говорит с брелоком прямо из браузера.
-      <a href="https://github.com/NovikovVisuals/Pip-KeyPet" target="_blank" rel="noopener">Исходный код</a></footer>
+    <footer>Працює в Chrome і Edge. Нічого не встановлюється: сторінка говорить з брелоком просто з браузера.
+      <a href="https://github.com/NovikovVisuals/Pip-KeyPet" target="_blank" rel="noopener">Вихідний код</a></footer>
   </aside>
 
   <main>
     <div class="notice" id="nobrowser" hidden>
-      Этот браузер не умеет работать с брелоком. Открой эту страницу в <b>Google Chrome</b> или <b>Microsoft Edge</b> на компьютере.
+      Цей браузер не вміє працювати з брелоком. Відкрий цю сторінку в <b>Google Chrome</b> або <b>Microsoft Edge</b> на комп’ютері.
     </div>
 
     <section data-tab="settings">
       <div class="head"><div>
-        <h2>Настройки</h2>
-        <p id="needlink">Подключи Пипа кнопкой «Подключить по кабелю»: его текущие настройки загрузятся сюда. Изменения сохраняются в самом брелоке.</p>
+        <h2>Налаштування</h2>
+        <p id="needlink">Підключи Піпа кнопкою «Підключити кабелем»: його поточні налаштування завантажаться сюди. Зміни зберігаються в самому брелоку.</p>
       </div></div>
 
       <div class="cards">
@@ -174,62 +174,62 @@ details p{margin:8px 0 0}
           <div class="badge">
             <div>
               <div class="fields">
-                <div><label for="first">Первая строка (имя)</label><input type="text" id="first" maxlength="30" placeholder="Твоё"></div>
-                <div><label for="last">Вторая строка (фамилия)</label><input type="text" id="last" maxlength="30" placeholder="Имя"></div>
+                <div><label for="first">Перший рядок (ім’я)</label><input type="text" id="first" maxlength="30" placeholder="Твоє"></div>
+                <div><label for="last">Другий рядок (прізвище)</label><input type="text" id="last" maxlength="30" placeholder="Ім’я"></div>
               </div>
-              <div style="margin-top:12px"><label for="org">Подпись внизу (можно оставить пустой)</label><input type="text" id="org" maxlength="22" placeholder="KeyPet"></div>
-              <div class="row" style="margin-top:14px"><button class="main" id="saveName">Сохранить бейдж</button><span class="saved" id="savedName">Сохранено</span></div>
+              <div style="margin-top:12px"><label for="org">Підпис унизу (можна лишити порожнім)</label><input type="text" id="org" maxlength="22" placeholder="KeyPet"></div>
+              <div class="row" style="margin-top:14px"><button class="main" id="saveName">Зберегти бейдж</button><span class="saved" id="savedName">Збережено</span></div>
             </div>
-            <div class="preview" aria-label="Примерно так на брелоке">
+            <div class="preview" aria-label="Приблизно так на брелоку">
               <div class="mark"><i></i><i></i></div>
-              <b id="pvFirst">Твоё</b><b id="pvLast">Имя</b><small id="pvOrg">KeyPet</small>
+              <b id="pvFirst">Твоє</b><b id="pvLast">Ім’я</b><small id="pvOrg">KeyPet</small>
             </div>
           </div>
         </div>
 
         <div class="card wide">
-          <h3>Ссылки для Quick QR <b>· до четырёх</b></h3>
-          <p class="muted">Пип покажет их QR-кодами, листаются свайпом. Ссылки на Telegram и Instagram получат значок в центре кода.</p>
+          <h3>Посилання для Quick QR <b>· до чотирьох</b></h3>
+          <p class="muted">Піп покаже їх QR-кодами, гортаються свайпом. Посилання на Telegram та Instagram отримають значок у центрі коду.</p>
           <div class="links" id="links">
-            <div class="link head-row"><span></span><span>Название</span><span>Подпись</span><span>Ссылка</span></div>
+            <div class="link head-row"><span></span><span>Назва</span><span>Підпис</span><span>Посилання</span></div>
           </div>
-          <div class="row"><button class="main" id="saveLinks">Сохранить ссылки</button><span class="saved" id="savedLinks">Сохранено</span></div>
+          <div class="row"><button class="main" id="saveLinks">Зберегти посилання</button><span class="saved" id="savedLinks">Збережено</span></div>
         </div>
 
         <div class="card">
-          <h3>Экран и батарея</h3>
-          <div class="toggle"><div>Режим энергосбережения<small>не больше 20 кадров в секунду, глаза не катаются от наклона, микрофон выключен, во сне выключается Bluetooth (уведомления придут, когда Пип проснётся)</small></div>
-            <label class="switch"><input type="checkbox" id="eco" aria-label="Режим энергосбережения"><span></span></label></div>
-          <div><label for="power">Засыпать, если Пипа не трогать</label>
+          <h3>Екран і батарея</h3>
+          <div class="toggle"><div>Режим енергозбереження<small>не більше 20 кадрів на секунду, очі не котяться від нахилу, мікрофон вимкнено, під час сну вимикається Bluetooth (сповіщення прийдуть, коли Піп прокинеться)</small></div>
+            <label class="switch"><input type="checkbox" id="eco" aria-label="Режим енергозбереження"><span></span></label></div>
+          <div><label for="power">Засинати, якщо Піпа не чіпати</label>
             <select id="power">
-              <option value="15">через 15 секунд (дольше всего работает)</option>
+              <option value="15">через 15 секунд (працює найдовше)</option>
               <option value="30">через 30 секунд</option>
-              <option value="60">через 1 минуту</option>
-              <option value="120">через 2 минуты</option>
-              <option value="300">через 5 минут</option>
-              <option value="0">никогда (батарея сядет быстро)</option>
+              <option value="60">через 1 хвилину</option>
+              <option value="120">через 2 хвилини</option>
+              <option value="300">через 5 хвилин</option>
+              <option value="0">ніколи (батарея сяде швидко)</option>
             </select></div>
-          <p class="muted">Просыпается от касания, кнопки, если взять в руку, и при уведомлении. Бейдж, QR и фонарик не дают уснуть, пока открыты.</p>
-          <div><label for="bright">Яркость</label>
+          <p class="muted">Прокидається від дотику, кнопки, якщо взяти в руку, і при сповіщенні. Бейдж, QR і ліхтарик не дають заснути, поки відкриті.</p>
+          <div><label for="bright">Яскравість</label>
             <div class="range"><input type="range" id="bright" min="10" max="100" step="5" value="80"><output id="brightOut">80%</output></div></div>
-          <div><label for="theme">Оформление</label>
-            <select id="theme"><option value="1">Приборка — строгое, с оранжевым</option><option value="3">Диагностика — ретро-терминал</option></select></div>
+          <div><label for="theme">Оформлення</label>
+            <select id="theme"><option value="1">Прилади — строге, з помаранчевим</option><option value="3">Діагностика — ретро-термінал</option></select></div>
         </div>
 
         <div class="card">
-          <h3>Уведомления с iPhone</h3>
-          <div><label for="privacy">Что видно на экране брелока</label>
+          <h3>Сповіщення з iPhone</h3>
+          <div><label for="privacy">Що видно на екрані брелока</label>
             <select id="privacy">
-              <option value="1">Скрыто: приложение и время, текст — когда откроешь</option>
-              <option value="0">Открыто: всё сразу</option>
-              <option value="2">Выключены: текст не приходит вообще</option>
+              <option value="1">Приховано: застосунок і час, текст — коли відкриєш</option>
+              <option value="0">Відкрито: все одразу</option>
+              <option value="2">Вимкнені: текст не приходить взагалі</option>
             </select></div>
-          <p class="muted">Коды, пароли и банки брелок не сохраняет ни в каком режиме.</p>
-          <p class="muted"><b style="color:var(--text)">Подключить iPhone:</b> Настройки → Bluetooth → Pip, затем подтверди код на брелоке верхней кнопкой.</p>
+          <p class="muted">Коди, паролі й банки брелок не зберігає в жодному режимі.</p>
+          <p class="muted"><b style="color:var(--text)">Підключити iPhone:</b> Налаштування → Bluetooth → Pip, потім підтверди код на брелоку верхньою кнопкою.</p>
         </div>
 
         <div class="card wide">
-          <h3>Что Пип замечает</h3>
+          <h3>Що Піп помічає</h3>
           <div class="toggles" id="feats"></div>
         </div>
       </div>
@@ -237,49 +237,49 @@ details p{margin:8px 0 0}
 
     <section data-tab="flash" hidden>
       <div class="head"><div>
-        <h2>Прошить или обновить Пипа</h2>
+        <h2>Прошити або оновити Піпа</h2>
         <p id="fwinfo"></p>
       </div></div>
       <div class="cards">
         <ol class="steps wide">
-          <li><b>Подключи кабель</b><span class="muted">USB-C, который передаёт данные, а не «только зарядка».</span></li>
-          <li><b>Нажми «Прошить»</b><span class="muted">и выбери в списке <b>USB JTAG/serial</b>.</span></li>
-          <li><b>Подожди минуту</b><span class="muted">Не отключай кабель, пока полоска не дойдёт до конца.</span></li>
+          <li><b>Підключи кабель</b><span class="muted">USB-C, що передає дані, а не «лише зарядка».</span></li>
+          <li><b>Натисни «Прошити»</b><span class="muted">і вибери у списку <b>USB JTAG/serial</b>.</span></li>
+          <li><b>Зачекай хвилину</b><span class="muted">Не відключай кабель, поки смужка не дійде до кінця.</span></li>
         </ol>
         <div class="card wide">
           <div class="flashbox">
-            <button class="main" id="flash">Прошить</button>
-            <div><div class="bar"><i id="prog"></i></div><p id="flashState" class="muted" style="margin-top:8px">Питомец, настройки и подключённый iPhone при обновлении сохраняются.</p></div>
+            <button class="main" id="flash">Прошити</button>
+            <div><div class="bar"><i id="prog"></i></div><p id="flashState" class="muted" style="margin-top:8px">Улюбленець, налаштування та підключений iPhone під час оновлення зберігаються.</p></div>
           </div>
-          <details class="muted"><summary>Не получается?</summary>
-            <p>Брелок не появляется в списке: попробуй другой кабель или другой USB-порт. На Linux один раз выполни
-              <code>sudo usermod -aG dialout $USER</code> и перезайди.</p>
-            <p>Прошивка не начинается: зажми нижнюю кнопку брелока, коротко нажми верхнюю и отпусти нижнюю. Брелок войдёт
-              в режим прошивки; снова нажми «Прошить».</p></details>
+          <details class="muted"><summary>Не виходить?</summary>
+            <p>Брелок не з’являється у списку: спробуй інший кабель або інший USB-порт. На Linux один раз виконай
+              <code>sudo usermod -aG dialout $USER</code> і перезайди.</p>
+            <p>Прошивка не починається: затисни нижню кнопку брелока, коротко натисни верхню й відпусти нижню. Брелок увійде
+              в режим прошивки; знову натисни «Прошити».</p></details>
         </div>
       </div>
     </section>
 
     <section data-tab="dev" hidden>
       <div class="head"><div>
-        <h2>Для разработчиков</h2>
-        <p>Почему у Пипа такое настроение (дерево эмоций), история за сутки, показ любой эмоции, ручки всех правил.</p>
+        <h2>Для розробників</h2>
+        <p>Чому в Піпа такий настрій (дерево емоцій), історія за добу, показ будь-якої емоції, регулятори всіх правил.</p>
       </div></div>
       <div class="cards">
         <div class="card">
-          <h3>Отладка</h3>
-          <p class="muted">Откроется в новой вкладке; кабель перейдёт к ней.</p>
-          <div class="row"><button id="openDebug">Открыть отладку</button></div>
+          <h3>Налагодження</h3>
+          <p class="muted">Відкриється в новій вкладці; кабель перейде до неї.</p>
+          <div class="row"><button id="openDebug">Відкрити налагодження</button></div>
         </div>
         <div class="card">
-          <h3>Режим разработчика</h3>
-          <p class="muted">Каркас глаз, взгляд, области перерисовки и цифры поверх Пипа, прямо на экране брелока.</p>
-          <div class="row"><button id="devOn">Включить</button><button id="devOff">Выключить</button></div>
+          <h3>Режим розробника</h3>
+          <p class="muted">Каркас очей, погляд, області перемальовування й цифри поверх Піпа, просто на екрані брелока.</p>
+          <div class="row"><button id="devOn">Увімкнути</button><button id="devOff">Вимкнути</button></div>
         </div>
         <div class="card">
-          <h3>Лог батареи</h3>
-          <p class="muted">Пип каждую минуту пишет заряд и напряжение в свою память (~17 часов). Зарядить до 100%, отключить кабель, дождаться, пока сядет, подключить и скачать.</p>
-          <div class="row"><button id="batGet">Скачать CSV</button><button id="batClear">Очистить</button><span class="saved" id="batState"></span></div>
+          <h3>Лог батареї</h3>
+          <p class="muted">Піп щохвилини пише заряд і напругу у свою пам’ять (~17 годин). Зарядити до 100%, відключити кабель, дочекатися, поки сяде, підключити й завантажити.</p>
+          <div class="row"><button id="batGet">Завантажити CSV</button><button id="batClear">Очистити</button><span class="saved" id="batState"></span></div>
         </div>
       </div>
     </section>
@@ -290,17 +290,17 @@ details p{margin:8px 0 0}
 <script type="module">
 const $ = id => document.getElementById(id);
 const FEATS = [
-  [0, 'Тряска', 'встряхнёшь — закружится голова'],
-  [1, 'Подуть', 'подуешь в микрофон — зажмурится'],
-  [2, 'Сон экраном вниз', 'положишь экраном вниз — уснёт и погасит экран'],
-  [3, 'Звук', 'Пип пищит, мурчит и ворчит'],
-  [4, 'Зарядка = еда', 'на зарядке радуется и наедается'],
-  [6, 'Громкие звуки', 'хлопок рядом его пугает'],
+  [0, 'Тряска', 'струсиш — запаморочиться голова'],
+  [1, 'Дмухнути', 'дмухнеш у мікрофон — примружиться'],
+  [2, 'Сон екраном донизу', 'покладеш екраном донизу — засне й погасить екран'],
+  [3, 'Звук', 'Піп пищить, муркоче й буркоче'],
+  [4, 'Зарядка = їжа', 'на зарядці радіє й наїдається'],
+  [6, 'Гучні звуки', 'ляскіт поруч його лякає'],
 ];
 if (!('serial' in navigator)) $('nobrowser').hidden = false;
 if (!('bluetooth' in navigator)) $('ble').hidden = true;
 const fw = window.PIP_FIRMWARE;
-$('fwinfo').textContent = fw ? `В панели прошивка ${fw.version} от ${fw.built}.` : 'Файл прошивки не найден (docs/firmware/firmware.js).';
+$('fwinfo').textContent = fw ? `У панелі прошивка ${fw.version} від ${fw.built}.` : 'Файл прошивки не знайдено (docs/firmware/firmware.js).';
 
 /* ---------- the link: a USB serial port (Web Serial) or Bluetooth ---------- */
 let port = null, reader = null, ble = null, bleq = Promise.resolve(), alive = 0, cfg = null;
@@ -314,7 +314,7 @@ function onLine(l) {
     alive = Date.now();
     const s = JSON.parse(l.slice(3));
     $('mood').textContent = s.m;
-    $('bat').textContent = s.bat >= 0 ? `${s.bat}%${s.ch ? ' · заряжается' : ''}` : '—';
+    $('bat').textContent = s.bat >= 0 ? `${s.bat}%${s.ch ? ' · заряджається' : ''}` : '—';
   } else if (l.startsWith('@C ')) { cfg = JSON.parse(l.slice(3)); fill(); }
   else if (l.startsWith('@B ') && batRows) {
     if (l === '@B end') {
@@ -324,7 +324,7 @@ function onLine(l) {
       }).join('\n') + '\n';
       const a = Object.assign(document.createElement('a'), {href: URL.createObjectURL(new Blob([csv], {type: 'text/csv'})), download: 'pip-battery.csv'});
       a.click();
-      $('batState').textContent = `${batRows.length} строк`; $('batState').classList.add('show');
+      $('batState').textContent = `${batRows.length} рядків`; $('batState').classList.add('show');
       batRows = null;
     } else batRows.push(l.slice(3));
   }
@@ -352,7 +352,7 @@ async function openPort(p) {
   await port.open({baudRate: 115200});
   try { await port.setSignals({dataTerminalReady: false, requestToSend: false}); } catch (e) {}
   readLoop();
-  state('По кабелю', true);
+  state('Кабелем', true);
   /* opening the port may reset the keychain: ask until it answers (it boots in ~4 s) */
   cfg = null;
   const ask = setInterval(() => { if (cfg || !port) clearInterval(ask); else send('config'); }, 1000);
@@ -369,7 +369,7 @@ async function closePort() {
 function state(text, on) { $('state').textContent = text; document.body.classList.toggle('linked', on); }
 $('usb').onclick = async () => {
   try { await openPort(await navigator.serial.requestPort({filters: [{usbVendorId: 0x303a}]})); }
-  catch (e) { if (e.name !== 'NotFoundError') state('Не вышло: ' + e.message, false); }
+  catch (e) { if (e.name !== 'NotFoundError') state('Не вийшло: ' + e.message, false); }
 };
 $('ble').onclick = async () => {
   const SVC = '50495044-4247-4b45-5950-455400000001', RX = '50495044-4247-4b45-5950-455400000002', TX = '50495044-4247-4b45-5950-455400000003';
@@ -385,18 +385,18 @@ $('ble').onclick = async () => {
       while ((i = acc.indexOf('\n')) >= 0) { onLine(acc.slice(0, i)); acc = acc.slice(i + 1); }
     });
     await tx.startNotifications();
-    dev.addEventListener('gattserverdisconnected', () => { ble = null; state('Bluetooth отключился', false); });
+    dev.addEventListener('gattserverdisconnected', () => { ble = null; state('Bluetooth відключився', false); });
     state('По Bluetooth', true);
     send('config');
   } catch (e) { if (e.name !== 'NotFoundError') state('Bluetooth: ' + e.message, false); }
 };
-setInterval(() => { if ((port || ble) && Date.now() - alive > 4000 && alive) state('Пип не отвечает — переподключи', false); }, 1000);
+setInterval(() => { if ((port || ble) && Date.now() - alive > 4000 && alive) state('Піп не відповідає — перепідключи', false); }, 1000);
 
 /* ---------- settings ---------- */
 for (let i = 0; i < 4; i++) $('links').insertAdjacentHTML('beforeend',
-  `<div class="link"><span class="n">${i + 1}</span><input type="text" placeholder="Telegram" maxlength="18" id="ls${i}" aria-label="Название ${i + 1}">` +
-  `<input type="text" placeholder="@ник" maxlength="46" id="lh${i}" aria-label="Подпись ${i + 1}">` +
-  `<input type="url" placeholder="https://t.me/ник" maxlength="198" id="lu${i}" aria-label="Ссылка ${i + 1}"></div>`);
+  `<div class="link"><span class="n">${i + 1}</span><input type="text" placeholder="Telegram" maxlength="18" id="ls${i}" aria-label="Назва ${i + 1}">` +
+  `<input type="text" placeholder="@нік" maxlength="46" id="lh${i}" aria-label="Підпис ${i + 1}">` +
+  `<input type="url" placeholder="https://t.me/нік" maxlength="198" id="lu${i}" aria-label="Посилання ${i + 1}"></div>`);
 for (const [f, name, note] of FEATS) $('feats').insertAdjacentHTML('beforeend',
   `<div class="toggle"><div>${name}<small>${note}</small></div><label class="switch"><input type="checkbox" id="f${f}" aria-label="${name}"><span></span></label></div>`);
 const clean = s => s.replace(/[|\n\r]/g, ' ').trim();
@@ -414,7 +414,7 @@ function fill() {
   $('theme').value = cfg.theme; $('privacy').value = cfg.privacy;
   for (const [f] of FEATS) $('f' + f).checked = !!cfg.feat[f];
   $('ver').textContent = cfg.ver || '—';
-  $('needlink').textContent = 'Изменения сохраняются в самом брелоке сразу.';
+  $('needlink').textContent = 'Зміни зберігаються в самому брелоку одразу.';
 }
 const flashSaved = id => { $(id).classList.add('show'); setTimeout(() => $(id).classList.remove('show'), 1500); };
 $('saveName').onclick = () => { send(`name ${clean($('first').value)}|${clean($('last').value)}|${clean($('org').value)}`); flashSaved('savedName'); };
@@ -436,11 +436,11 @@ $('tabs').onclick = e => {
   document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
   document.querySelectorAll('section[data-tab]').forEach(s => s.hidden = s.dataset.tab !== t);
 };
-$('openDebug').onclick = async () => { await closePort(); state('Отладка открыта в новой вкладке', false); window.open('debug.html', '_blank'); };
+$('openDebug').onclick = async () => { await closePort(); state('Налагодження відкрито в новій вкладці', false); window.open('debug.html', '_blank'); };
 $('devOn').onclick = () => send('dev 1');
 let batRows = null;
 $('batGet').onclick = () => { batRows = []; send('bat'); };
-$('batClear').onclick = () => { if (confirm('Стереть лог батареи на брелоке?')) send('bat clear'); };
+$('batClear').onclick = () => { if (confirm('Стерти лог батареї на брелоку?')) send('bat clear'); };
 $('devOff').onclick = () => send('dev 0');
 
 /* ---------- flashing (esptool-js) ---------- */
@@ -449,18 +449,18 @@ $('flash').onclick = async () => {
   const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
   $('flash').disabled = true;
   try {
-    $('flashState').textContent = 'Готовлюсь...';
+    $('flashState').textContent = 'Готуюся...';
     const {ESPLoader, Transport} = await import('https://unpkg.com/esptool-js@0.6.1/bundle.js');
-    /* ask Pip to show "Обновление" first: the screen keeps that frame while the chip is in the flasher.
+    /* ask Pip to show "Оновлення" first: the screen keeps that frame while the chip is in the flasher.
        Firmware that is not Pip's (a factory one, an empty chip) never answers: then just go on after a few seconds. */
     if (!port) await openPort(await navigator.serial.requestPort({filters: [{usbVendorId: 0x303a}]}));
-    $('flashState').textContent = 'Связываюсь с Пипом...';
+    $('flashState').textContent = 'Зв’язуюся з Піпом...';
     for (let t = 0; !cfg && t < 60; t++) await new Promise(r => setTimeout(r, 100));
     if (cfg) { await send('update'); await new Promise(r => setTimeout(r, 600)); }
     const p = await closePort();
     const transport = new Transport(p, true);
     const loader = new ESPLoader({transport, baudrate: 921600, terminal: {clean() {}, writeLine() {}, write() {}}});
-    $('flashState').textContent = 'Связываюсь с брелоком...';
+    $('flashState').textContent = 'Зв’язуюся з брелоком...';
     await loader.main();
     const total = fw.parts.reduce((n, x) => n + x.data.length * 0.75, 0);
     let done = 0, last = 0;
@@ -471,7 +471,7 @@ $('flash').onclick = async () => {
         if (written < last) done += last;
         last = written;
         $('prog').style.width = Math.min(100, (done + written) / total * 100) + '%';
-        $('flashState').textContent = 'Прошиваю... не отключай кабель';
+        $('flashState').textContent = 'Прошиваю... не відключай кабель';
       },
     });
     /* esptool-js 0.6.1 'hard_reset' only lets RTS go, it never pulls it: the chip stayed in the flasher with the last
@@ -482,10 +482,10 @@ $('flash').onclick = async () => {
     await transport.setRTS(false);
     await transport.disconnect();
     $('prog').style.width = '100%';
-    $('flashState').textContent = 'Готово! Пип перезагружается. Через несколько секунд нажми «Подключить по кабелю», чтобы настроить его.';
-    state('Не подключён', false);
+    $('flashState').textContent = 'Готово! Піп перезавантажується. За кілька секунд натисни «Підключити кабелем», щоб налаштувати його.';
+    state('Не підключено', false);
   } catch (e) {
-    $('flashState').textContent = 'Не получилось: ' + (e.message || e) + '. Загляни в «Не получается?» ниже.';
+    $('flashState').textContent = 'Не вдалося: ' + (e.message || e) + '. Зазирни в «Не виходить?» нижче.';
   }
   $('flash').disabled = false;
 };
