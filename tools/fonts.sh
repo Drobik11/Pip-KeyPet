@@ -15,8 +15,8 @@ text() { # name size family weight [triangles]
   conv --size $2 --font $F/$3-latin-$4.woff -r $LATIN --font $F/$3-cyrillic-$4.woff -r $CYR --font $FA -r $ICONS "${extra[@]}" \
        --lv-font-name $1 -o ui/fonts/$1.c
 }
-caps() { conv --size $2 --font $F/$3-latin-$4.woff -r 0x20,0x2D,0x2E,0x41-0x5A --font $F/$3-cyrillic-$4.woff -r 0x401,0x410-0x42F --lv-font-name $1 -o ui/fonts/$1.c; } # the badge name
-title() { conv --size $2 --font $F/$3-latin-$4.woff -r 0x20-0x5F,0xAB,0xBB,0x2013,0x2014,0x2026 --font $F/$3-cyrillic-$4.woff -r 0x401,0x410-0x42F --lv-font-name $1 -o ui/fonts/$1.c; } # capitals for big titles
+caps() { conv --size $2 --font $F/$3-latin-$4.woff -r 0x20,0x2D,0x2E,0x41-0x5A --font $F/$3-cyrillic-$4.woff -r 0x401,0x404,0x406,0x407,0x410-0x42F,0x490 --lv-font-name $1 -o ui/fonts/$1.c; } # the badge name
+title() { conv --size $2 --font $F/$3-latin-$4.woff -r 0x20-0x5F,0xAB,0xBB,0x2013,0x2014,0x2026 --font $F/$3-cyrillic-$4.woff -r 0x401,0x404,0x406,0x407,0x410-0x42F,0x490 --lv-font-name $1 -o ui/fonts/$1.c; } # capitals for big titles
 digits() { conv --size $2 --font $F/$3-latin-$4.woff -r 0x25,0x2E,0x30-0x3A --lv-font-name $1 -o ui/fonts/$1.c; }
 text font_instr_20 20 jetbrains-mono 400
 text font_instr_28 28 jetbrains-mono 700
