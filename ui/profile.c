@@ -4,8 +4,8 @@
 
 /* until someone sets their own: an obvious placeholder, and a code that leads to the project */
 profile_t profile = {
-    .first = "Твоё",
-    .last = "Имя",
+    .first = "Твоє",
+    .last = "Ім'я",
     .org = "KeyPet",
     .link = {{"GitHub", "Pip-KeyPet", "https://github.com/NovikovVisuals/Pip-KeyPet"}},
 };

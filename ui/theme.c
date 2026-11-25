@@ -1,5 +1,6 @@
 #include "theme.h"
 #include "shell.h"
+#include "wallpaper.h"
 #include <limits.h>
 #include <math.h>
 #include <string.h>
@@ -14,12 +15,12 @@ LV_FONT_DECLARE(font_diag_28)
 LV_FONT_DECLARE(font_diag_96) LV_FONT_DECLARE(font_diag_56) LV_FONT_DECLARE(font_diag_40)
 
 const theme_t themes[TH_COUNT] = {
-    [TH_SILENCE] = {.name = "Тишина", .bg = 0x000000, .text = 0xF2F2F2, .dim = 0x8C8C8C, .faint = 0x262626, .panel = 0x1A1A1A,
+    [TH_SILENCE] = {.name = "Тиша", .bg = 0x000000, .text = 0xF2F2F2, .dim = 0x8C8C8C, .faint = 0x262626, .panel = 0x1A1A1A,
                     .accent = 0xFF3B30, .good = 0xF2F2F2, .small = &font_silence_20, .tiny = &font_silence_20, .tiny_bold = &font_silence_20, .body = &font_silence_28,
                     .digits = &font_silence_96, .caps = true, .radius = LV_RADIUS_CIRCLE, .icons = ICONS_OUTLINE,
                     .clock = CLOCK_DOTS, .meter = METER_DOTS, .menu = MENU_HONEYCOMB,
                     .hidden = true /* the honeycomb lags on the board; back when it is fast */},
-    [TH_INSTRUMENT] = {.name = "Приборка", .bg = 0x000000, .text = 0xE8E6E1, .dim = 0xA3A09A, .faint = 0x2A2A2A, .panel = 0x1C1C1C,
+    [TH_INSTRUMENT] = {.name = "Прилади", .bg = 0x000000, .text = 0xE8E6E1, .dim = 0xA3A09A, .faint = 0x2A2A2A, .panel = 0x1C1C1C,
                        .accent = 0xFF5A1F, .good = 0xE8E6E1, .small = &font_instr_20, .tiny = &font_instr_20, .tiny_bold = &font_instr_20, .body = &font_instr_28,
                        .digits = &font_instr_96, .big = &font_instr_56, .title = &font_instr_40, .caps = true, .radius = 6, .icons = ICONS_OUTLINE, .clock = CLOCK_DIAL,
                        .meter = METER_SEGMENTS, .menu = MENU_LIST},
@@ -27,7 +28,7 @@ const theme_t themes[TH_COUNT] = {
                   .accent = 0x0091FF, .good = 0x30D158, .small = &font_apple_20, .tiny = &font_apple_20, .tiny_bold = &font_apple_20, .body = &font_apple_28, .digits = &font_apple_96,
                   .caps = false, .radius = LV_RADIUS_CIRCLE, .icons = ICONS_GLASS, .clock = CLOCK_BIG, .meter = METER_BAR,
                   .menu = MENU_HONEYCOMB, .hidden = true},
-    [TH_DIAG] = {.name = "Диагностика", .bg = 0x3A1F1B, .text = 0xE6D8C3, .dim = 0xB9A592, .faint = 0x5A3530, .panel = 0x4A2A26,
+    [TH_DIAG] = {.name = "Діагностика", .bg = 0x3A1F1B, .text = 0xE6D8C3, .dim = 0xB9A592, .faint = 0x5A3530, .panel = 0x4A2A26,
                  .accent = 0xE6D8C3, .good = 0xE6D8C3, .grid = 0x5A3530, .mute = 0x8A6A60, .off = 0x4F2B26, .small = &font_diag_20, .body = &font_diag_28,
                  .digits = &font_diag_96, .big = &font_diag_56, .title = &font_diag_40, .tiny = &font_diag_16, .tiny_bold = &font_diag_16b, .button = &font_diag_20b, .caps = true, .radius = 0, .icons = ICONS_BLOCKS, .clock = CLOCK_BLOCKS,
                  .meter = METER_BLOCKS, .menu = MENU_LIST},
@@ -39,7 +40,7 @@ uint32_t th_mute(void) { return th->mute ? th->mute : th->dim; } /* the terminal
 uint32_t th_off(void) { return th->off ? th->off : th->faint; }
 int theme_index(void) { return (int)(th - themes); }
 
-/* UTF-8 upper case for Latin and Russian, which is all the UI writes */
+/* UTF-8 upper case for Latin and Ukrainian (and Russian), which is all the UI writes */
 static void caps(char *out, const char *text, int max) /* every case pair is the same length, so it works in place too */
 {
     const unsigned char *s = (const unsigned char *)text;
@@ -48,6 +49,8 @@ static void caps(char *out, const char *text, int max) /* every case pair is the
         if (*s >= 'a' && *s <= 'z') { out[n++] = (char)(*s++ - 32); continue; }
         if (s[0] == 0xD0 && s[1] >= 0xB0 && s[1] <= 0xBF) { out[n++] = (char)0xD0, out[n++] = (char)(s[1] - 0x20), s += 2; continue; } /* а..п */
         if (s[0] == 0xD1 && s[1] >= 0x80 && s[1] <= 0x8F) { out[n++] = (char)0xD0, out[n++] = (char)(s[1] + 0x20), s += 2; continue; } /* р..я */
+        if (s[0] == 0xD1 && (s[1] == 0x94 || s[1] == 0x96 || s[1] == 0x97)) { out[n++] = (char)0xD0, out[n++] = (char)(s[1] - 0x10), s += 2; continue; } /* є і ї */
+        if (s[0] == 0xD2 && s[1] == 0x91) { out[n++] = (char)0xD2, out[n++] = (char)0x90, s += 2; continue; }                                /* ґ */
         if (s[0] == 0xD1 && s[1] == 0x91) { out[n++] = (char)0xD0, out[n++] = (char)0x81, s += 2; continue; }                   /* ё */
         out[n++] = (char)*s++;
     }
@@ -108,7 +111,7 @@ lv_obj_t *th_button(lv_obj_t *parent, const char *text, bool primary, lv_event_c
     return b;
 }
 
-/* the dot grid of "Диагностика", rendered once into a full-screen background: one blit per redraw instead of a
+/* the dot grid of "Діагностика", rendered once into a full-screen background: one blit per redraw instead of a
    tiled 11x11 image (some 1700 small blits for the whole screen, a fifth of a menu frame on the board) */
 static lv_draw_buf_t *grid_bg;
 static uint32_t grid_for = 0xFFFFFFFF;
@@ -116,6 +119,12 @@ void th_screen(lv_obj_t *scr)
 {
     lv_obj_set_style_bg_color(scr, lv_color_hex(th->bg), 0);
     lv_obj_set_style_bg_opa(scr, LV_OPA_COVER, 0);
+    const lv_image_dsc_t *wp = wallpaper_get(); /* the owner's photo (wallpaper.h) goes where the dot grid would */
+    if (wp) {
+        lv_obj_set_style_bg_image_src(scr, wp, 0);
+        lv_obj_set_style_bg_image_tiled(scr, false, 0);
+        return;
+    }
     if (!th->grid) { lv_obj_set_style_bg_image_src(scr, NULL, 0); return; }
     if (!grid_bg) grid_bg = lv_draw_buf_create(SCR, SCR, LV_COLOR_FORMAT_RGB565, 0);
     if (grid_for != (th->bg ^ th->grid << 1)) { /* redrawn only when the colours change */
@@ -210,7 +219,7 @@ lv_obj_t *th_header(lv_obj_t *scr, const char *text, int y)
     lv_obj_set_style_pad_column(row, 4, 0);
     lv_obj_remove_flag(row, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_align(row, LV_ALIGN_TOP_MID, 0, y);
-    static const char prefix[] = "пип-01 // "; /* the terminal's device tag; the other themes just say the section */
+    static const char prefix[] = "піп-01 // "; /* the terminal's device tag; the other themes just say the section */
     if (!TH_TERMINAL && !strncmp(text, prefix, sizeof prefix - 1)) text += sizeof prefix - 1;
     lv_obj_t *l = th_text(row, th->tiny_bold, th->text, text);
     lv_obj_set_style_text_letter_space(l, TH_TERMINAL ? 2 : th->caps, 0);

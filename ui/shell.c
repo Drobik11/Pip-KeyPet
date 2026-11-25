@@ -391,7 +391,7 @@ static void list_layout(void)
         lv_obj_align_to(sh.lens_cursor, sh.lens_rows[sh.lo + mid], LV_ALIGN_OUT_RIGHT_MID, 6, 0);
         for (int i = 0; i < sh.n; i++) th_cell_set(sh.scroll, &sh.scroll_cells[i], i == mid ? th->text : th->off);
         char t[48];
-        if (sh.group) lv_snprintf(t, sizeof t, "игры // %02d/%02d", mid + 1, sh.n);
+        if (sh.group) lv_snprintf(t, sizeof t, "ігри // %02d/%02d", mid + 1, sh.n);
         else lv_snprintf(t, sizeof t, "заряд %s // %02d/%02d", shell_battery_text(), mid + 1, sh.n);
         const char *u = th_label(t);
         if (strcmp(u, lv_label_get_text(sh.head))) lv_label_set_text(sh.head, u); /* also as the battery changes */
@@ -486,7 +486,7 @@ static void chrome_build(void) /* the terminal's header, hints and scroll cells,
     lv_obj_clean(sh.chrome);
     if (!TH_TERMINAL) return;
     sh.head = th_header(sh.chrome, "", 40);
-    th_footer(sh.chrome, sh.group ? TH_UP " открыть   " TH_DOWN " назад" : TH_UP " открыть   " TH_DOWN " пип", 392);
+    th_footer(sh.chrome, sh.group ? TH_UP " відкрити   " TH_DOWN " назад" : TH_UP " відкрити   " TH_DOWN " піп", 392);
     int top = SCR / 2 - (sh.n * 11 - 2) / 2;
     for (int i = 0; i < sh.n; i++) sh.scroll_cells[i] = (th_cell_t){405, (int16_t)(top + i * 11), 9, 9, th->off};
     sh.scroll = th_cells(sh.chrome, sh.scroll_cells, sh.n);
@@ -663,8 +663,8 @@ void shell_updating(void)
     lv_obj_set_size(o, SCR, SCR);
     th_screen(o);
     lv_obj_add_flag(o, LV_OBJ_FLAG_CLICKABLE); /* swallows touches */
-    th_text_at(o, th->title ? th->title : th->body, th->text, th_label("Обновление"), -1, 176);
-    th_text_at(o, th->small, th->accent, th_label("Не отключай кабель"), -1, 252);
+    th_text_at(o, th->title ? th->title : th->body, th->text, th_label("Оновлення"), -1, 176);
+    th_text_at(o, th->small, th->accent, th_label("Не відключай кабель"), -1, 252);
 }
 
 void shell_home(void)
