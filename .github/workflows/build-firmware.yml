@@ -16,6 +16,27 @@ jobs:
           . $IDF_PATH/export.sh
           export KEYPET_PUBLIC=1
           cd firmware
+          # на чистій теці немає sdkconfig, і менеджер компонентів не знає LV_USE_FREETYPE:
+          # додаємо потрібні ключі в sdkconfig по одному, поки конфігурація не пройде
+          echo 'CONFIG_IDF_TARGET="esp32s3"' > sdkconfig
+          python3 - <<'PY'
+          import re, subprocess
+          defaults = open('sdkconfig.defaults').read()
+          for i in range(30):
+              r = subprocess.run('idf.py -B build-release reconfigure', shell=True, capture_output=True, text=True, executable='/bin/bash')
+              out = r.stdout + r.stderr
+              if r.returncode == 0:
+                  print('конфігурація ок'); break
+              m = re.search(r'MissingKconfigError: (\w+)', out)
+              if not m:
+                  print(out[-4000:]); raise SystemExit(1)
+              k = m.group(1)
+              line = re.search(r'^CONFIG_%s=.*$' % k, defaults, re.M)
+              print('додаю ключ', k)
+              open('sdkconfig', 'a').write((line.group(0) if line else '# CONFIG_%s is not set' % k) + '\n')
+          else:
+              raise SystemExit('не вдалося налаштувати')
+          PY
           idf.py -B build-release build 2>&1 | tail -n 60
           test ${PIPESTATUS[0]} -eq 0
       - name: Пакування для сайту
